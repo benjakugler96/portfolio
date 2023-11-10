@@ -1,25 +1,25 @@
+import { getAge } from '../../utils/getAge';
 import Section from '../section';
 import { Paragraph } from './styled';
 
 const About = () => (
   <Section title="About me">
     <Paragraph>
-      Back in 2012, I decided to try my hand at creating custom Tumblr themes
-      and tumbled head first into the rabbit hole of coding and web development.
-      Fast-forward to today, and I’ve had the privilege of building software for
-      an advertising agency, a start-up, a student-led design studio, and a huge
-      corporation.
+      Hello, I'm a {getAge('1996-05-17')}-year-old software engineer who
+      specializes in blending creativity with technical expertise to design
+      visually appealing and seamlessly functional web experiences. With a focus
+      on front-end development, I create user interfaces that not only catch the
+      eye but also operate smoothly. Outside of coding, you'll often find me
+      going for a run, driven by a passion for staying active and exploring new
+      places.
     </Paragraph>
     <Paragraph>
-      My main focus these days is building products and leading projects for our
-      clients at Upstatement. In my free time Ive also released an online video
-      course that covers everything you need to know to build a web app with the
-      Spotify API.
-    </Paragraph>
-    <Paragraph>
-      When I’m not at the computer, I’m usually rock climbing, hanging out with
-      my wife and two cats, or running around Hyrule searching for Korok seeds K
-      o r o k s e e d s .
+      A key aspect of my approach is a love for problem-solving. Whether it's
+      troubleshooting a challenging bug in my code or navigating unfamiliar
+      terrain in a new city, I thrive on finding effective solutions. Join me on
+      this journey of coding and life, where I transform ideas into polished web
+      applications, explore new horizons, and tackle challenges with a
+      determined smile! 🚀
     </Paragraph>
   </Section>
 );

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "startYear": 2021,
+    "endYear": null,
+    "jobTitle": "Tech Leader",
+    "company": "Leniolabs LLC",
+    "description": "From zero to production, we developed a full application including a Chrome extension. Some of my responsabilities are leading and mentoring a team of developers, fostering a collaborative environment. Oversee the planning, execution, and delivery of the project, ensuring they align with organizational goals and meet high-quality standards. Act as a bridge between technical and non-technical stakeholders, communicating complex concepts in a clear and understandable manner.",
+    "technologies": ["BlitzJs", "Node", "Prisma", "React"]
+  },
+  {
+    "id": 2,
+    "startYear": 2019,
+    "endYear": null,
+    "jobTitle": "Software Engineer",
+    "company": "Leniolabs LLC",
+    "description": "Deliver high-quality, robust production code for a diverse array of projects inside ICE Mortgage Technology. Worked on both, web and mobile applications collaborating with a huge number of teams from around the globe.",
+    "technologies": ["React", "React Native", "JavaScript", "TypeScript"]
+  },
+  {
+    "id": 3,
+    "startYear": 2019,
+    "endYear": 2019,
+    "jobTitle": "Web Developer",
+    "company": "Globant",
+    "description": "Boilerplate text. Boilerplate text. Boilerplate text. Boilerplate text. Boilerplate text. Boilerplate text. Boilerplate text. Boilerplate text. Boilerplate text. ",
+    "technologies": ["React", "React Native", "JavaScript", "Node", "Mongo"]
+  }
+]
