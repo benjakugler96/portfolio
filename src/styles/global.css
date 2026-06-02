@@ -281,7 +281,7 @@ strong { font-weight: 600; color: var(--ink); }
 /* =========================================================================
    PROJECTS
    ========================================================================= */
-.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
 .proj-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(.2,.7,.2,1), box-shadow 0.3s, border-color 0.3s; }
 .proj-card:hover { transform: translateY(-6px); box-shadow: 0 22px 40px -24px color-mix(in oklab, var(--ink) 50%, transparent); border-color: var(--accent-line); }
 .proj-card__media { display: block; padding: 1rem 1rem 0; }
