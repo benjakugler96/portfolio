@@ -348,7 +348,7 @@ strong { font-weight: 600; color: var(--ink); }
   .nav__burger { display: flex; }
   .nav__cta { display: none; }
   .hero__inner { grid-template-columns: 1fr; }
-  .hero__photo { order: -1; max-width: 320px; }
+  .hero__photo { order: -1; max-width: 320px; margin-inline: auto; }
   .hero__scroll { display: none; }
   .about .section__grid { grid-template-columns: 1fr; }
   .skills__grid { grid-template-columns: 1fr; }
@@ -357,10 +357,12 @@ strong { font-weight: 600; color: var(--ink); }
   .section__head--row { align-items: flex-start; }
 }
 @media (max-width: 560px) {
-  .hero { padding-top: 104px; }
+  .hero { padding-top: 104px; padding-bottom: 3rem; }
   .btn { height: 46px; flex: 1; justify-content: center; }
   .hero__cta { gap: 0.6rem; }
   .tl-projects { padding-left: 1.6rem; }
+  /* keep the dots centered on the line at the reduced padding */
+  .tl-proj__dot { left: -1.6rem; }
   .brand__name { display: none; }
   .hero__route { opacity: 0.55; }
 }
