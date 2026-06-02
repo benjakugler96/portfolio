@@ -33,6 +33,11 @@ Push the repo and import it in Vercel — Astro is auto-detected (build
 [`public/robots.txt`](./public/robots.txt) so the sitemap and OG URLs are
 absolute.
 
+**Node version:** Astro 5 requires Node ≥ 20.19. The version is pinned to
+**22.x** via `engines.node` in [`package.json`](./package.json) (and `.nvmrc`),
+which Vercel reads and which overrides the project's dashboard setting — so a
+stale "Node 18.x" build setting can't break the deploy.
+
 ## CV PDFs
 
 Drop your résumés in [`public/cv/`](./public/cv) with these exact names:
