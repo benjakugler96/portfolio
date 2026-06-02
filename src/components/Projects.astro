@@ -1,10 +1,12 @@
 ---
-// Drop real screenshots in /public/img and replace the .ph placeholder with an
-// <img width=… height=…> to keep CLS at zero (the .ph frame reserves 16 / 10).
+// Screenshots live in /public/img as {img}.webp (+ .jpg fallback), 1200×750
+// (16:10). The .ph frame reserves the aspect ratio so CLS stays at 0. Set
+// `img: null` to fall back to the striped placeholder labelled `shot`.
 const projects = [
   {
     title: "Ticketera",
     sub: "Work in progress",
+    img: "ticketera",
     shot: "ticketera.png",
     href: "https://ticketera-app-lemon.vercel.app/",
     body: "Event ticketing platform for Corrientes, Argentina, with online payments built in.",
@@ -13,6 +15,7 @@ const projects = [
   {
     title: "Saint Patrick College",
     sub: null,
+    img: "saint-patrick",
     shot: "saint-patrick.png",
     href: "https://saintpatrickcollege.com/tienda",
     body: "Automation & digital tools: WhatsApp automation (n8n), a student-trip tracking PWA, and an e-commerce store for uniforms & textbooks.",
@@ -41,7 +44,23 @@ const projects = [
               {...(p.href ? { target: "_blank", rel: "noopener" } : {})}
             >
               <div class="ph ph--shot">
-                <span class="ph__label">{p.shot}</span>
+                {
+                  p.img ? (
+                    <picture>
+                      <source srcset={`/img/${p.img}.webp`} type="image/webp" />
+                      <img
+                        src={`/img/${p.img}.jpg`}
+                        alt={`${p.title} — screenshot`}
+                        width="1200"
+                        height="750"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
+                  ) : (
+                    <span class="ph__label">{p.shot}</span>
+                  )
+                }
               </div>
             </a>
             <div class="proj-card__body">
