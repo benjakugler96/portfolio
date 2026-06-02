@@ -35,8 +35,19 @@
     </div>
 
     <figure class="hero__photo">
-      <div class="ph ph--portrait" role="img" aria-label="Portrait of Benjamin Kugler">
-        <span class="ph__label">portrait.jpg</span>
+      <div class="ph ph--portrait">
+        <picture>
+          <source srcset="/img/portrait.webp" type="image/webp" />
+          <img
+            src="/img/portrait.jpg"
+            alt="Benjamin Kugler"
+            width="880"
+            height="1100"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
       <figcaption class="hero__photo-cap">
         <span class="mono">/ currently</span> Haarlem · NL
