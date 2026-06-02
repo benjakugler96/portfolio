@@ -1,0 +1,134 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Experience from "../components/Experience.astro";
+import Skills from "../components/Skills.astro";
+import Projects from "../components/Projects.astro";
+import Cv from "../components/Cv.astro";
+import Contact from "../components/Contact.astro";
+---
+
+<Base>
+  <Nav />
+  <main id="main">
+    <span id="top"></span>
+    <Hero />
+    <About />
+    <Experience />
+    <Skills />
+    <Projects />
+    <Cv />
+    <Contact />
+  </main>
+</Base>
+
+<script>
+  // ── Interactions: theme, nav, scroll-reveal, scrollspy ──────────────────
+  const root = document.documentElement;
+  const THEME_KEY = "bk-theme";
+
+  // Theme toggle (initial theme is already applied by the inline head script).
+  const themeToggle = document.getElementById("themeToggle");
+  const syncThemeBtn = () =>
+    themeToggle?.setAttribute("aria-pressed", String(root.getAttribute("data-theme") === "dark"));
+  syncThemeBtn();
+  themeToggle?.addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch {}
+    syncThemeBtn();
+  });
+
+  // Nav scrolled state + scroll progress bar.
+  const nav = document.getElementById("nav");
+  const progress = document.getElementById("navProgress");
+  const onScroll = () => {
+    const y = window.scrollY || window.pageYOffset;
+    nav?.classList.toggle("is-scrolled", y > 8);
+    if (progress) {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu.
+  const burger = document.getElementById("navBurger");
+  const menu = document.getElementById("mobileMenu");
+  const closeMenu = () => {
+    if (!menu || !burger) return;
+    menu.classList.remove("is-open");
+    burger.setAttribute("aria-expanded", "false");
+    burger.setAttribute("aria-label", "Open menu");
+    setTimeout(() => {
+      if (!menu.classList.contains("is-open")) menu.hidden = true;
+    }, 300);
+  };
+  const openMenu = () => {
+    if (!menu || !burger) return;
+    menu.hidden = false;
+    requestAnimationFrame(() => menu.classList.add("is-open"));
+    burger.setAttribute("aria-expanded", "true");
+    burger.setAttribute("aria-label", "Close menu");
+  };
+  if (burger && menu) {
+    burger.addEventListener("click", () =>
+      menu.classList.contains("is-open") ? closeMenu() : openMenu()
+    );
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
+  }
+
+  // Scroll-reveal with staggered delays + a no-IO failsafe.
+  const reveals = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+  const show = (el: HTMLElement) => el.classList.add("is-in");
+  const inView = (el: HTMLElement) => {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight * 0.92 && r.bottom > 0;
+  };
+  reveals.forEach((el, i) => (el.style.transitionDelay = Math.min((i % 6) * 60, 300) + "ms"));
+  reveals.forEach((el) => inView(el) && show(el));
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            show(en.target as HTMLElement);
+            io.unobserve(en.target);
+          }
+        }),
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    reveals.forEach((el) => !el.classList.contains("is-in") && io.observe(el));
+  }
+  const revealInView = () =>
+    reveals.forEach((el) => !el.classList.contains("is-in") && inView(el) && show(el));
+  window.addEventListener("scroll", revealInView, { passive: true });
+  setTimeout(() => reveals.forEach(show), 2600);
+
+  // Active-section highlight in the nav.
+  const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".nav__links a"));
+  const sections = navLinks
+    .map((a) => document.getElementById(a.getAttribute("href")!.slice(1)))
+    .filter((s): s is HTMLElement => Boolean(s));
+  if ("IntersectionObserver" in window && sections.length) {
+    const spy = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            const id = en.target.id;
+            navLinks.forEach((a) =>
+              a.classList.toggle("is-active", a.getAttribute("href") === "#" + id)
+            );
+          }
+        }),
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => spy.observe(s));
+  }
+</script>

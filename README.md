@@ -1,8 +1,68 @@
-# React + Vite
+# Benjamin Kugler — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Single-page personal portfolio. Built with **Astro** (static output, near-zero
+client JS) for maximum speed. The design is the Claude Design handoff in
+[`design/`](./design) — that folder is the source of truth for layout, colors,
+type, and copy.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Astro 5** + TypeScript — 100% static (SSG), no backend, deploys to Vercel.
+- Hand-authored CSS with `oklch` design tokens ([`src/styles/global.css`](./src/styles/global.css)).
+  Light theme default with a persisted dark-mode toggle.
+- Self-hosted, subset fonts via `@fontsource` (Space Grotesk, Hanken Grotesk,
+  JetBrains Mono) — only the weights in use, `font-display: swap`.
+- Tiny vanilla `<script>` islands for theme / nav / scroll-reveal and the CV
+  download. No UI framework ships to the browser.
+
+## Run locally
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # static output → ./dist
+npm run preview  # serve the built site
+```
+
+## Deploy (Vercel)
+
+Push the repo and import it in Vercel — Astro is auto-detected (build
+`astro build`, output `dist`). Caching headers live in
+[`vercel.json`](./vercel.json). Set the production domain in
+[`astro.config.mjs`](./astro.config.mjs) (`site`) and
+[`public/robots.txt`](./public/robots.txt) so the sitemap and OG URLs are
+absolute.
+
+## CV PDFs
+
+Drop your résumés in [`public/cv/`](./public/cv) with these exact names:
+
+```
+benjamin-kugler-fullstack-ar.pdf   benjamin-kugler-frontend-ar.pdf   # Argentina (EN)
+benjamin-kugler-fullstack-es.pdf   benjamin-kugler-frontend-es.pdf   # España (ES)
+benjamin-kugler-fullstack-en.pdf   benjamin-kugler-frontend-en.pdf   # International (EN) — fallback
+```
+
+**How selection works:** on click, the site picks a region. Left on **Auto**, it
+runs a one-shot IP lookup (`ipapi.co`) with a 1.5s timeout — `AR → -ar`,
+`ES → -es`, anything else / failure / timeout → `-en`. The visitor can override
+with the manual selector (Argentina / España / International). Detection only
+runs on click, never on load, so it never costs first-paint performance.
+
+To change the naming scheme or add a language, edit the resolution logic in
+[`src/components/Cv.astro`](./src/components/Cv.astro) and the table in
+[`public/cv/README.md`](./public/cv/README.md).
+
+## Images
+
+Placeholders (striped frames with monospace labels) stand in for the portrait
+and project screenshots. Drop real files in `public/img/` and swap the
+`<div class="ph">` for an `<img>` with explicit `width`/`height` — the `.ph`
+frames already reserve the aspect ratio, so CLS stays at zero.
+
+## SEO
+
+Title, description, Open Graph + Twitter cards, `theme-color`, canonical URL,
+`og.png` (1200×630), `favicon.png`, `robots.txt`, and an auto-generated
+`sitemap-index.xml` (via `@astrojs/sitemap`) are all wired in
+[`src/layouts/Base.astro`](./src/layouts/Base.astro).

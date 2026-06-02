@@ -1,0 +1,82 @@
+---
+// Self-hosted fonts with font-display: swap. Latin-only subset (the copy is
+// English/Spanish — all in range) and only the weights actually used, so the
+// CSS and woff2 payload stay minimal.
+import "@fontsource/space-grotesk/latin-400.css";
+import "@fontsource/space-grotesk/latin-600.css";
+import "@fontsource/hanken-grotesk/latin-400.css";
+import "@fontsource/hanken-grotesk/latin-500.css";
+import "@fontsource/hanken-grotesk/latin-600.css";
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "@fontsource/jetbrains-mono/latin-600.css";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Benjamin Kugler — Senior Full Stack Engineer",
+  description = "Benjamin Kugler — Senior Full Stack Engineer building scalable web, data, and AI-driven products. Based near Haarlem, Netherlands.",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/og.png", Astro.site).href;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Benjamin Kugler" />
+    <meta name="theme-color" content="#2f5fd6" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en" />
+    <meta property="og:site_name" content="Benjamin Kugler" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- No-flash theme: applied before first paint, ahead of any rendering. -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem("bk-theme");
+          if (saved === "dark" || saved === "light") {
+            document.documentElement.setAttribute("data-theme", saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Without JS the scroll-reveal would leave content invisible; force it on. -->
+    <noscript>
+      <style>
+        .reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

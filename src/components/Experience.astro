@@ -1,0 +1,69 @@
+---
+const projects = [
+  {
+    name: "ICE Mortgage Technologies",
+    sub: null,
+    body: "Micro-frontend platform (React + TypeScript) over a Spring Boot / PostgreSQL backend for an enterprise lending product. Led a StencilJS → React migration; instrumented with LogRocket and Splunk dashboards.",
+    tags: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "Splunk"],
+  },
+  {
+    name: "Thirdwishp",
+    sub: null,
+    body: "AI assistant pairing LLMs with Snowflake and FastAPI for natural-language querying and dynamic SQL generation. Real-time Next.js frontend, deployed on Azure Container Apps.",
+    tags: ["LLMs", "FastAPI", "Snowflake", "Next.js", "Azure"],
+  },
+  {
+    name: "MediaPro",
+    sub: "(Grup Mediapro)",
+    body: "Data-intelligence platform with Microsoft Fabric pipelines (medallion architecture) feeding Power BI — including an executive CEO dashboard turning operations into decision-ready views.",
+    tags: ["Microsoft Fabric", "Power BI", "Medallion", "Data Eng"],
+  },
+];
+---
+
+<section class="section experience" id="experience">
+  <div class="shell">
+    <div class="section__head section__head--row reveal">
+      <div>
+        <p class="section__index mono">02 / Experience</p>
+        <h2 class="section__title">A single long climb.</h2>
+      </div>
+      <p class="section__note">
+        Technical reference across international projects — mentoring, technical
+        interviews, and shipping in production.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <article class="tl-role reveal">
+        <header class="tl-role__head">
+          <div>
+            <h3 class="tl-role__company">Improving South America</h3>
+            <p class="tl-role__title">Senior Full Stack Engineer</p>
+          </div>
+          <span class="tl-range mono">2019 — Present</span>
+        </header>
+
+        <ol class="tl-projects">
+          {
+            projects.map((p) => (
+              <li class="tl-proj reveal">
+                <div class="tl-proj__dot" aria-hidden="true" />
+                <h4>
+                  {p.name}
+                  {p.sub && <span class="tl-proj__sub"> {p.sub}</span>}
+                </h4>
+                <p>{p.body}</p>
+                <ul class="tag-row">
+                  {p.tags.map((t) => (
+                    <li>{t}</li>
+                  ))}
+                </ul>
+              </li>
+            ))
+          }
+        </ol>
+      </article>
+    </div>
+  </div>
+</section>
