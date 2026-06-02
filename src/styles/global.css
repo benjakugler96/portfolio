@@ -327,11 +327,15 @@ strong { font-weight: 600; color: var(--ink); }
 .contact__title { font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -0.03em; margin: 0.5rem 0 1.5rem; }
 .contact__avail { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--ink-2); font-size: 1rem; }
 .contact__links { display: grid; gap: 0.75rem; }
-.contact-link { display: flex; flex-direction: column; gap: 0.3rem; padding: 1.1rem 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); transition: border-color 0.2s, transform 0.2s; }
+.contact-link { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); transition: border-color 0.2s, transform 0.2s; }
+.contact-link__icon { flex-shrink: 0; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line-soft); color: var(--ink-2); transition: background 0.2s, color 0.2s, border-color 0.2s; }
+.contact-link__icon svg { width: 20px; height: 20px; display: block; }
+.contact-link__text { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
 .contact-link .mono { color: var(--ink-3); text-transform: uppercase; }
-.contact-link__val { font-family: var(--f-head); font-size: 1.15rem; }
+.contact-link__val { font-family: var(--f-head); font-size: 1.15rem; overflow-wrap: anywhere; }
 .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
 .contact-link:hover .contact-link__val { color: var(--accent); }
+.contact-link:hover .contact-link__icon { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 
 .contact__foot { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--line); color: var(--ink-3); flex-wrap: wrap; gap: 0.5rem; }
 .contact__foot .mono { font-size: 0.72rem; }
