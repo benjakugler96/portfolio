@@ -40,21 +40,17 @@ stale "Node 18.x" build setting can't break the deploy.
 
 ## CV PDFs
 
-Drop your résumés in [`public/cv/`](./public/cv) with these exact names:
+A single front-end résumé in two languages. Drop the two PDFs in
+[`public/cv/`](./public/cv) with these exact names:
 
 ```
-benjamin-kugler-fullstack-ar.pdf   benjamin-kugler-frontend-ar.pdf   # Argentina (EN)
-benjamin-kugler-fullstack-es.pdf   benjamin-kugler-frontend-es.pdf   # España (ES)
-benjamin-kugler-fullstack-en.pdf   benjamin-kugler-frontend-en.pdf   # International (EN) — fallback
+benjamin-kugler-frontend-es.pdf   # Español
+benjamin-kugler-frontend-en.pdf   # English
 ```
 
-**How selection works:** on click, the site picks a region. Left on **Auto**, it
-runs a one-shot IP lookup (`ipapi.co`) with a 1.5s timeout — `AR → -ar`,
-`ES → -es`, anything else / failure / timeout → `-en`. The visitor can override
-with the manual selector (Argentina / España / International). Detection only
-runs on click, never on load, so it never costs first-paint performance.
-
-To change the naming scheme or add a language, edit the resolution logic in
+The CV section shows two buttons (Español / English) that link straight to these
+files — plain `<a download>`, no JavaScript and no external requests. To add a
+language or a second role, edit the `cvs` array in
 [`src/components/Cv.astro`](./src/components/Cv.astro) and the table in
 [`public/cv/README.md`](./public/cv/README.md).
 

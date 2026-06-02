@@ -1,14 +1,19 @@
 ---
-const regions = [
-  { id: "auto", label: "Auto" },
-  { id: "ar", label: "Argentina" },
-  { id: "es", label: "España" },
-  { id: "en", label: "International" },
-];
-
+// Front-end CV in two languages. Plain download links — no JS, no external
+// fetch. Drop the two PDFs in /public/cv/ with these exact names.
 const cvs = [
-  { type: "fullstack", kind: "PDF · Full Stack", label: "Full Stack CV" },
-  { type: "frontend", kind: "PDF · Frontend", label: "Frontend CV" },
+  {
+    lang: "Español",
+    kind: "PDF · Español",
+    label: "CV en Español",
+    file: "/cv/benjamin-kugler-frontend-es.pdf",
+  },
+  {
+    lang: "English",
+    kind: "PDF · English",
+    label: "CV in English",
+    file: "/cv/benjamin-kugler-frontend-en.pdf",
+  },
 ];
 ---
 
@@ -17,126 +22,21 @@ const cvs = [
     <div class="cv__copy">
       <p class="section__index mono">05 / Résumé</p>
       <h2 class="section__title">Grab the CV.</h2>
-      <p class="cv__note">Two cuts, depending on the role you're hiring for.</p>
-
-      <div class="cv__region">
-        <span class="cv__region-label" id="cvRegionLabel">Region / language</span>
-        <div class="cv__seg" role="group" aria-labelledby="cvRegionLabel" id="cvRegion">
-          {
-            regions.map((r) => (
-              <button
-                type="button"
-                data-region={r.id}
-                aria-pressed={r.id === "auto" ? "true" : "false"}
-              >
-                {r.label}
-              </button>
-            ))
-          }
-        </div>
-        <p class="cv__hint" id="cvHint" role="status" aria-live="polite">
-          Auto-detects your country on download · falls back to International (EN).
-        </p>
-      </div>
+      <p class="cv__note">Front-end résumé — pick your language.</p>
     </div>
 
-    <div class="cv__buttons" id="cvButtons">
+    <div class="cv__buttons">
       {
         cvs.map((c) => (
-          <button type="button" class="cv-btn" data-cv-type={c.type}>
+          <a class="cv-btn" href={c.file} download aria-label={`Download ${c.label}`}>
             <span class="cv-btn__kind mono">{c.kind}</span>
             <span class="cv-btn__label">{c.label}</span>
             <span class="cv-btn__icon" aria-hidden="true">
               ↓
             </span>
-          </button>
+          </a>
         ))
       }
     </div>
   </div>
 </section>
-
-<script>
-  // CV download — geo-aware filename resolution.
-  // Files live at /cv/benjamin-kugler-{type}-{region}.pdf where region ∈ ar|es|en.
-  // The visitor can force a region with the selector; otherwise we do a one-shot
-  // IP lookup *on click* (never on load) with a short timeout, falling back to EN.
-  (function () {
-    const BASE = "benjamin-kugler";
-    const seg = document.getElementById("cvRegion");
-    const hint = document.getElementById("cvHint");
-    const buttons = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(".cv-btn[data-cv-type]")
-    );
-
-    let manual: string | null = null; // "ar" | "es" | "en" | null(=auto)
-    let detected: string | null = null; // cached IP result for the session
-
-    if (seg) {
-      seg.addEventListener("click", (e) => {
-        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-region]");
-        if (!btn) return;
-        const region = btn.dataset.region!;
-        seg.querySelectorAll("button").forEach((b) =>
-          b.setAttribute("aria-pressed", String(b === btn))
-        );
-        manual = region === "auto" ? null : region;
-        if (hint) {
-          hint.textContent =
-            manual === null
-              ? "Auto-detects your country on download · falls back to International (EN)."
-              : `Serving the ${labelFor(manual)} CV.`;
-        }
-      });
-    }
-
-    function labelFor(r: string) {
-      return r === "ar" ? "Argentina (EN)" : r === "es" ? "España (ES)" : "International (EN)";
-    }
-
-    // One-shot IP geolocation with a hard timeout; never throws, always resolves.
-    async function detectRegion(): Promise<string> {
-      if (detected) return detected;
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 1500);
-      try {
-        const res = await fetch("https://ipapi.co/json/", { signal: controller.signal });
-        const data = await res.json();
-        const cc = String(data.country_code || "").toUpperCase();
-        detected = cc === "AR" ? "ar" : cc === "ES" ? "es" : "en";
-      } catch {
-        detected = "en"; // timeout / blocked / offline → fallback
-      } finally {
-        clearTimeout(timer);
-      }
-      return detected;
-    }
-
-    function triggerDownload(type: string, region: string) {
-      const file = `/cv/${BASE}-${type}-${region}.pdf`;
-      const a = document.createElement("a");
-      a.href = file;
-      a.download = `${BASE}-${type}-${region}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    }
-
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const type = btn.dataset.cvType!;
-        if (manual) {
-          triggerDownload(type, manual);
-          return;
-        }
-        // Auto: detect on click, with a spinner while we wait.
-        btn.setAttribute("aria-busy", "true");
-        if (hint) hint.textContent = "Detecting your region…";
-        const region = await detectRegion();
-        btn.removeAttribute("aria-busy");
-        if (hint) hint.textContent = `Serving the ${labelFor(region)} CV.`;
-        triggerDownload(type, region);
-      });
-    });
-  })();
-</script>
