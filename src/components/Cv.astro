@@ -1,18 +1,19 @@
 ---
 // Front-end CV in two languages. Plain download links — no JS, no external
-// fetch. Drop the two PDFs in /public/cv/ with these exact names.
+// fetch. Drop the two PDFs in /public/cv/ with these exact names. The `download`
+// attribute forces the saved filename (e.g. "benjamin-kugler-es.pdf").
 const cvs = [
   {
-    lang: "Español",
     kind: "PDF · Español",
     label: "CV en Español",
-    file: "/cv/benjamin-kugler-frontend-es.pdf",
+    file: "/cv/benjamin-kugler-es.pdf",
+    download: "benjamin-kugler-es.pdf",
   },
   {
-    lang: "English",
     kind: "PDF · English",
     label: "CV in English",
-    file: "/cv/benjamin-kugler-frontend-en.pdf",
+    file: "/cv/benjamin-kugler-en.pdf",
+    download: "benjamin-kugler-en.pdf",
   },
 ];
 ---
@@ -28,7 +29,7 @@ const cvs = [
     <div class="cv__buttons">
       {
         cvs.map((c) => (
-          <a class="cv-btn" href={c.file} download aria-label={`Download ${c.label}`}>
+          <a class="cv-btn" href={c.file} download={c.download} aria-label={`Download ${c.label}`}>
             <span class="cv-btn__kind mono">{c.kind}</span>
             <span class="cv-btn__label">{c.label}</span>
             <span class="cv-btn__icon" aria-hidden="true">

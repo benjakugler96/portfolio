@@ -44,8 +44,8 @@ A single front-end résumé in two languages. Drop the two PDFs in
 [`public/cv/`](./public/cv) with these exact names:
 
 ```
-benjamin-kugler-frontend-es.pdf   # Español
-benjamin-kugler-frontend-en.pdf   # English
+benjamin-kugler-es.pdf   # Español
+benjamin-kugler-en.pdf   # English
 ```
 
 The CV section shows two buttons (Español / English) that link straight to these
