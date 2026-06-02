@@ -1,0 +1,58 @@
+---
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="nav" id="nav">
+  <div class="nav__inner shell">
+    <a class="brand" href="#top" aria-label="Benjamin Kugler — home">
+      <span class="brand__mark" aria-hidden="true">BK</span>
+      <span class="brand__name">Benjamin Kugler</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+    <div class="nav__actions">
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        type="button"
+        aria-label="Toggle dark mode"
+        aria-pressed="false"
+      >
+        <span class="theme-toggle__track" aria-hidden="true"
+          ><span class="theme-toggle__thumb"></span></span
+        >
+      </button>
+      <a class="btn btn--solid nav__cta" href="#contact">Get in touch</a>
+      <button
+        class="nav__burger"
+        id="navBurger"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav__progress" id="navProgress" aria-hidden="true"></div>
+</header>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <nav aria-label="Mobile">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#cv">Download CV</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>

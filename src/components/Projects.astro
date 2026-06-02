@@ -1,0 +1,82 @@
+---
+// Drop real screenshots in /public/img and replace the .ph placeholder with an
+// <img width=… height=…> to keep CLS at zero (the .ph frame reserves 16 / 10).
+const projects = [
+  {
+    title: "Ticketera",
+    sub: null,
+    shot: "ticketera.png",
+    href: null,
+    body: "Event ticketing platform for Corrientes, Argentina, with online payments built in.",
+    tags: ["Next.js 16", "Supabase", "Vercel", "Mercado Pago"],
+  },
+  {
+    title: "Saint Patrick College",
+    sub: null,
+    shot: "saint-patrick.png",
+    href: null,
+    body: "Automation & digital tools: WhatsApp automation (n8n), a student-trip tracking PWA, and an e-commerce store for uniforms & textbooks.",
+    tags: ["Next.js", "Supabase", "Mercado Pago", "n8n"],
+  },
+  {
+    title: "CEO Dashboard",
+    sub: "MediaPro",
+    shot: "ceo-dashboard.png",
+    href: null,
+    body: "Interactive executive dashboard turning financial & usage data into decision-ready visualizations.",
+    tags: ["HTML / JS", "Data viz", "Power BI"],
+  },
+];
+---
+
+<section class="section projects" id="projects">
+  <div class="shell">
+    <div class="section__head section__head--row reveal">
+      <div>
+        <p class="section__index mono">04 / Selected work</p>
+        <h2 class="section__title">Things I've shipped.</h2>
+      </div>
+    </div>
+
+    <div class="proj-grid">
+      {
+        projects.map((p) => (
+          <article class="proj-card reveal">
+            <a
+              class="proj-card__media"
+              href={p.href ?? "#"}
+              aria-label={`${p.title} — open project`}
+              {...(p.href ? { target: "_blank", rel: "noopener" } : {})}
+            >
+              <div class="ph ph--shot">
+                <span class="ph__label">{p.shot}</span>
+              </div>
+            </a>
+            <div class="proj-card__body">
+              <div class="proj-card__top">
+                <h3>
+                  {p.title}
+                  {p.sub && <span class="proj-card__sub">{p.sub}</span>}
+                </h3>
+                <a
+                  class="proj-card__link"
+                  href={p.href ?? "#"}
+                  aria-label={`Open ${p.title}`}
+                  {...(p.href ? { target: "_blank", rel: "noopener" } : {})}
+                >
+                  ↗
+                </a>
+              </div>
+              <p>{p.body}</p>
+              <ul class="tag-row">
+                {p.tags.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

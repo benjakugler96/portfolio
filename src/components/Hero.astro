@@ -1,0 +1,51 @@
+---
+// Drop a real portrait at /public/img/portrait.jpg (or .webp) and swap the
+// placeholder <div class="ph"> for an <img> with explicit width/height to
+// keep CLS at zero. The .ph frame already reserves a 4 / 5 aspect ratio.
+---
+
+<section class="hero" id="hero">
+  <div class="hero__route" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" class="route-svg">
+      <path
+        class="route-line"
+        d="M0,250 L120,250 L180,180 L240,210 L320,120 L400,150 L470,70 L540,110 L620,40 L700,95 L780,60 L880,150 L960,120 L1060,200 L1160,160 L1260,230 L1340,200 L1440,250"
+      ></path>
+      <circle class="route-dot" cx="620" cy="40" r="5"></circle>
+    </svg>
+  </div>
+
+  <div class="shell hero__inner reveal">
+    <div class="hero__text">
+      <p class="eyebrow"><span class="eyebrow__tick"></span>Senior Full Stack Engineer</p>
+      <h1 class="hero__name">Benjamin<br />Kugler</h1>
+      <p class="hero__tagline">
+        Full Stack Engineer building <em>scalable web, data, and AI-driven</em> products
+        — from idea to production.
+      </p>
+      <p class="hero__meta">
+        <span><span class="dot"></span>Based near Haarlem, NL</span>
+        <span><span class="dot"></span>From Corrientes, AR</span>
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="#cv">Download CV</a>
+        <a class="btn btn--ghost" href="#projects">View projects</a>
+        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <figure class="hero__photo">
+      <div class="ph ph--portrait" role="img" aria-label="Portrait of Benjamin Kugler">
+        <span class="ph__label">portrait.jpg</span>
+      </div>
+      <figcaption class="hero__photo-cap">
+        <span class="mono">/ currently</span> Haarlem · NL
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="mono">scroll</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>

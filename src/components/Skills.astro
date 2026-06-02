@@ -1,0 +1,34 @@
+---
+const groups = [
+  { tag: "FE", name: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux", "React Query"] },
+  { tag: "BE", name: "Backend", items: ["Java", "Spring Boot", "FastAPI", "Python", "REST", "Kafka"] },
+  { tag: "DB", name: "Data", items: ["PostgreSQL", "Snowflake", "Microsoft Fabric", "Power BI", "Supabase"] },
+  { tag: "OPS", name: "Cloud & DevOps", items: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions", "Bitbucket Pipelines", "Azure DevOps"] },
+];
+---
+
+<section class="section skills" id="skills">
+  <div class="shell">
+    <div class="section__head reveal">
+      <p class="section__index mono">03 / Skills</p>
+      <h2 class="section__title">The toolkit.</h2>
+    </div>
+    <div class="skills__grid">
+      {
+        groups.map((g) => (
+          <div class="skill-group reveal">
+            <h3 class="skill-group__name">
+              <span class="mono">{g.tag}</span>
+              {g.name}
+            </h3>
+            <ul class="chip-row">
+              {g.items.map((i) => (
+                <li>{i}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
