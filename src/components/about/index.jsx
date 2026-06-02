@@ -5,7 +5,7 @@ import { Paragraph } from './styled';
 const About = () => (
   <Section title="About me">
     <Paragraph>
-      Hello, I'm a {getAge('1996-05-17')}-year-old software engineer who
+      Hello! I'm a {getAge('1996-05-17')}-year-old software engineer who
       specializes in blending creativity with technical expertise to design
       visually appealing and seamlessly functional web experiences. With a focus
       on front-end development, I create user interfaces that not only catch the
